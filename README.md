@@ -17,6 +17,87 @@ L'application utilise une architecture client-serveur où :
 - **WebRTC** : Permet la visioconférence entre les utilisateurs en établissant des connexions peer-to-peer.
 - **APIs de Géolocalisation** : Utilisées pour obtenir la position de l'utilisateur et l'afficher sur une carte.
 
+### Protocole de Communication
+La communication entre le client et le serveur se fait via WebSocket, utilisant un format JSON pour les messages échangés. Chaque message contient un type et des données associées, permettant de gérer différents types d'interactions.
+
+### Format des Paquets
+Les paquets de communication sont au format JSON et contiennent les champs suivants :
+- **type** : Indique le type de message (ex. "message", "gps", "offer", "answer", "candidate", "error").
+- **data** : Contient les données spécifiques au type de message.
+
+### Types de Paquets
+Voici les différents types de paquets utilisés dans l'application :
+
+1. **Message**
+   - **Type** : `"message"`
+   - **Données** : 
+     ```json
+     {
+       "type": "message",
+       "username": "Nom d'utilisateur",
+       "message": "Contenu du message"
+     }
+     ```
+
+2. **Géolocalisation**
+   - **Type** : `"gps"`
+   - **Données** : 
+     ```json
+     {
+       "type": "gps",
+       "latitude": 41.193,
+       "longitude": -0.366,
+       "username": "Nom d'utilisateur"
+     }
+     ```
+
+3. **Offre WebRTC**
+   - **Type** : `"offer"`
+   - **Données** : 
+     ```json
+     {
+       "type": "offer",
+       "offer": { /* SDP de l'offre */ },
+       "target": "Nom d'utilisateur cible",
+       "sender": "Nom d'utilisateur"
+     }
+     ```
+
+4. **Réponse WebRTC**
+   - **Type** : `"answer"`
+   - **Données** : 
+     ```json
+     {
+       "type": "answer",
+       "answer": { /* SDP de la réponse */ },
+       "target": "Nom d'utilisateur cible",
+       "sender": "Nom d'utilisateur"
+     }
+     ```
+
+5. **Candidat ICE**
+   - **Type** : `"candidate"`
+   - **Données** : 
+     ```json
+     {
+       "type": "candidate",
+       "candidate": { /* Détails du candidat ICE */ },
+       "target": "Nom d'utilisateur cible",
+       "sender": "Nom d'utilisateur"
+     }
+     ```
+
+6. **Erreur**
+   - **Type** : `"error"`
+   - **Données** : 
+     ```json
+     {
+       "type": "error",
+       "message": "Message d'erreur"
+     }
+     ```
+
+
 ### Dépendances
 Les principales dépendances de l'application sont :
 - `express` : Framework web pour Node.js.

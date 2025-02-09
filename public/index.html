@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+	<link rel="stylesheet" href="style.css" />
+	<title>Chat WebSocket</title>
+</head>
+<body>
+
+	<div class="modal" id="usernameModal">
+		<div class="modal-content">
+			<h2>Join Chat</h2>
+			<input type="text" id="username" placeholder="Entrez votre nom d'utilisateur">
+			<br>
+			<button onclick="joinChat()">Rejoindre le chat</button>
+		</div>
+	</div>
+
+
+	<button id="chat-toggle-btn" onclick="toggleChat()">💬</button>
+  <button id="centerMap" onclick="centerMap()" disabled >🞋</button>
+	<div id="chat-container" style="visibility: hidden; opacity: 0;">
+		<div id="chat-header">
+			<span>Chat</span>
+			<button onclick="toggleChat()">✖️</button>
+		</div>
+		<div id="chatbox"></div>
+		<div id="chat-input">
+			<input type="text" id="message" placeholder="Entrez votre message" onkeypress="handleKeyPress(event)">
+			<button id="send" onclick="sendMessage()" disabled>Envoyer</button>
+		</div>
+	</div>
+
+	<div id="map"></div>
+
+	<video id="localVideo" autoplay muted style="display:none;"></video>
+
+	
+
+	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+		integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+		crossorigin=""></script>
+	<script src="./script.js"></script>
+</body>
+</html>
